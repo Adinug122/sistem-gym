@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IRON GYM - Member Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -15,7 +16,7 @@
         .sidebar-closed { transform: translateX(-100%); }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body x-data="{modal: false}" class="bg-gray-50 text-gray-800">
     <div class="flex h-screen overflow-hidden relative">
         
         <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden lg:hidden"></div>
@@ -89,217 +90,120 @@
                 </div>
             </header>
 
-            <div class="p-4 md:p-8">
+            <div class="p-4 md:p-bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-6 mb-8  text-white relative overflow-hidden8">
                 <div class="bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-6 mb-8 shadow-lg text-white relative overflow-hidden">
                     <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
                     
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
                         <div>
                             <p class="text-red-100 text-sm mb-1 font-medium">Status Membership</p>
-                            <h3 class="text-3xl font-bold mb-2">{{ $membership->paket->nama }}</h3>
-                            <p class="text-red-100 text-sm md:text-base">Berlaku hingga {{ $end }} • <span class="bg-white bg-opacity-20 px-2 py-0.5 rounded font-bold">{{ $sisa_asli }} hari lagi</span></p>
+                            <h3 class="text-3xl font-bold mb-2">Aktif</h3>
+                            <p class="text-red-100 text-sm md:text-base">Berlaku hingga {{ $end }} • <span class="bg-white bg-opacity-20 px-2 py-0.5 rounded font-bold">{{ $sisaHari }} hari lagi</span></p>
+                            <p class="text-red-100 text-sm mt-3">Kamu punya total {{ $totalPaket }} Paket yang aktif  </p>
                         </div>
-                        <button class="w-full md:w-auto bg-white text-red-500 px-6 py-3 rounded-lg font-bold shadow-md hover:bg-gray-50 hover:scale-105 transition-all transform">
-                            Perpanjang Sekarang
+                        <button @click="modal = true" class="w-full md:w-auto bg-white text-red-500 px-6 py-3 rounded-lg font-bold shadow-md hover:bg-gray-50 hover:scale-105 transition-all transform">
+                            Lihat Paket
                         </button>
                     </div>
+
                 </div>
+</div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-dumbbell text-blue-500 text-xl"></i>
-                            </div>
-                            <span class="text-green-500 text-xs font-bold bg-green-50 px-2 py-1 rounded-full">+5%</span>
-                        </div>
-                        <h4 class="text-3xl font-bold text-gray-800 mb-1">156</h4>
-                        <p class="text-gray-500 text-sm">Latihan Minggu Ini</p>
-                    </div>
 
-                    <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-fire text-orange-500 text-xl"></i>
-                            </div>
-                            <span class="text-green-500 text-xs font-bold bg-green-50 px-2 py-1 rounded-full">+12%</span>
-                        </div>
-                        <h4 class="text-3xl font-bold text-gray-800 mb-1">2,847</h4>
-                        <p class="text-gray-500 text-sm">Kalori Terbakar</p>
-                    </div>
+<!-- Main modal -->
 
-                    <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                            </div>
-                            <span class="text-gray-400 text-xs font-medium">Target 72%</span>
-                        </div>
-                        <h4 class="text-3xl font-bold text-gray-800 mb-1">892</h4>
-                        <p class="text-gray-500 text-sm">Kehadiran Bulan Ini</p>
-                    </div>
 
-                    <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-clock text-purple-500 text-xl"></i>
-                            </div>
-                            <span class="text-green-500 text-xs font-bold bg-green-50 px-2 py-1 rounded-full">+8m</span>
-                        </div>
-                        <h4 class="text-3xl font-bold text-gray-800 mb-1">2.5 jam</h4>
-                        <p class="text-gray-500 text-sm">Durasi Rata-rata</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
-                    
-                    <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-xl font-bold text-gray-800">Jadwal Hari Ini</h3>
-                            <a href="#" class="text-red-500 text-sm font-semibold hover:text-red-600">Lihat Semua</a>
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <div class="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-red-100 transition-colors">
-                                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-running text-red-500 text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="text-gray-800 font-bold mb-1">Cardio Blast</h4>
-                                    <p class="text-gray-500 text-xs sm:text-sm"><i class="far fa-clock mr-1"></i> 08:00 - 09:00 • Studio A</p>
-                                </div>
-                                <span class="px-3 py-1 bg-green-100 text-green-600 text-xs font-bold rounded-full text-center w-fit">Terdaftar</span>
-                            </div>
-
-                            <div class="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-blue-100 transition-colors">
-                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-dumbbell text-blue-500 text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="text-gray-800 font-bold mb-1">Strength Training</h4>
-                                    <p class="text-gray-500 text-xs sm:text-sm"><i class="far fa-clock mr-1"></i> 14:00 - 15:30 • Gym Area</p>
-                                </div>
-                                <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full text-center w-fit">Tersedia</span>
-                            </div>
-
-                            <div class="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-purple-100 transition-colors">
-                                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-spa text-purple-500 text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="text-gray-800 font-bold mb-1">Yoga Flow</h4>
-                                    <p class="text-gray-500 text-xs sm:text-sm"><i class="far fa-clock mr-1"></i> 18:00 - 19:00 • Studio B</p>
-                                </div>
-                                <span class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full text-center w-fit">Tersedia</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-xl font-bold text-gray-800">Program Aktif</h3>
-                            <a href="#" class="text-red-500 text-sm font-semibold hover:text-red-600">Kelola</a>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <div>
-                                        <h4 class="text-gray-800 font-bold text-sm sm:text-base">Build Muscle Program</h4>
-                                        <p class="text-gray-500 text-xs">12 dari 16 sesi selesai</p>
-                                    </div>
-                                    <span class="text-xl font-bold text-red-500">75%</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div class="bg-gradient-to-r from-red-500 to-orange-500 h-2.5 rounded-full" style="width: 75%"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <div>
-                                        <h4 class="text-gray-800 font-bold text-sm sm:text-base">Fat Loss Challenge</h4>
-                                        <p class="text-gray-500 text-xs">5 dari 12 sesi selesai</p>
-                                    </div>
-                                    <span class="text-xl font-bold text-blue-500">42%</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2.5 rounded-full" style="width: 42%"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <div>
-                                        <h4 class="text-gray-800 font-bold text-sm sm:text-base">Flexibility & Mobility</h4>
-                                        <p class="text-gray-500 text-xs">8 dari 10 sesi selesai</p>
-                                    </div>
-                                    <span class="text-xl font-bold text-purple-500">80%</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2.5 rounded-full" style="width: 80%"></div>
-                                </div>
-                            </div>
-
-                            <button class="w-full mt-2 bg-gray-50 border-2 border-dashed border-gray-300 text-gray-500 py-3 rounded-lg hover:border-red-400 hover:text-red-500 hover:bg-red-50 transition-all font-medium text-sm">
-                                <i class="fas fa-plus mr-2"></i> Tambah Program Baru
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-800">Riwayat Aktivitas</h3>
-                        <a href="#" class="text-red-500 text-sm font-semibold hover:text-red-600">Lihat Semua</a>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                            <div class="flex items-center gap-4 w-full sm:w-auto">
-                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-check text-green-500"></i>
-                                </div>
-                                <div class="flex-1 sm:hidden">
-                                    <p class="text-gray-800 font-bold text-sm">Sesi Cardio Selesai</p>
-                                    <p class="text-gray-500 text-xs">Hari ini, 09:15</p>
-                                </div>
-                                <span class="text-orange-500 font-bold text-sm sm:hidden">+320 kal</span>
-                            </div>
-                            
-                            <div class="hidden sm:block flex-1">
-                                <p class="text-gray-800 font-medium">Menyelesaikan sesi Cardio Blast</p>
-                                <p class="text-gray-500 text-xs">Hari ini, 09:15 • Durasi 60 menit</p>
-                            </div>
-                            <span class="text-orange-500 font-bold text-sm hidden sm:block">+320 kal</span>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-dumbbell text-blue-500"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-gray-800 font-medium text-sm sm:text-base">Check-in di Gym Area</p>
-                                <p class="text-gray-500 text-xs">Kemarin, 14:30</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-trophy text-purple-500"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-gray-800 font-medium text-sm sm:text-base">Mencapai target minggu ini</p>
-                                <p class="text-gray-500 text-xs">2 hari yang lalu</p>
-                            </div>
-                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-bold rounded-full">Pencapaian</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </main>
     </div>
+<div x-show="modal"
+     style="display: none;"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0 transform scale-90"
+     x-transition:enter-end="opacity-100 transform scale-100"
+     x-transition:leave="transition ease-in duration-200"
+     x-transition:leave-start="opacity-100 transform scale-100"
+     x-transition:leave-end="opacity-0 transform scale-90"
+     @click.self="modal = false"
+     class="fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-60 backdrop-blur-sm overflow-y-auto overflow-x-hidden p-4">
 
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white border border-gray-200 rounded-xl shadow-2xl">
+            
+            <div class="flex items-center justify-between p-4 border-b border-gray-100 md:p-5">
+                <h3 class="text-lg font-bold text-gray-900">
+                    Daftar Paket
+                </h3>
+                
+                <button @click="modal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <div class="p-4 md:p-5">
+                <p class="text-sm font-normal text-gray-500 mb-4">Berikut Daftar Paket Yang aktif</p>
+                <ul class="space-y-3">
+        @foreach ($membership as $item)
+            <li>
+                <div class="flex items-center justify-between p-3 rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center 
+                            {{ $item->status == 'active' ? 'bg-green-100 text-green-600' : 'bg-orange-100 text-orange-600' }}">
+                            
+                            @if($item->status == 'active')
+                                <i class="fas fa-bolt"></i> @else
+                                <i class="fas fa-hourglass-half"></i> @endif
+                        </div>
+
+                        <div>
+                            <p class="text-sm font-bold text-gray-900">
+                                {{ $item->paket->nama ?? 'Paket Unknown' }}
+                            </p>
+                            
+                            <p class="text-xs text-gray-500">
+                                @if($item->status == 'active')
+                                    Berakhir: {{ \Carbon\Carbon::parse($item->end)->format('d M Y') }}
+                                @else
+                                    Mulai: {{ \Carbon\Carbon::parse($item->start)->format('d M Y') }}
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        @if($item->status == 'active')
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400">
+                                Active
+                            </span>
+                        @else
+                            <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded border border-orange-400">
+                                Antre
+                            </span>
+                        @endif
+                    </div>
+
+                </div>
+            </li>
+        @endforeach
+                
+                </ul>
+                
+                <div class="mt-4">
+                    <a href="#" class="inline-flex items-center text-xs font-normal text-gray-500 hover:underline">
+                        <svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.529 7.988a2.502 2.502 0 0 1 5 .191A2.441 2.441 0 0 1 10 10.582V12m-.01 4.008H10M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                        </svg>
+                     Syarat & Ketentuan Berlaku
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('mobile-sidebar');

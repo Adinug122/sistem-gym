@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Membership;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Payments;
+use Carbon\Carbon;
 
 class PaymentsCallbackController extends Controller
 {
@@ -27,6 +29,7 @@ class PaymentsCallbackController extends Controller
             'raw_response'       => json_encode($request->all()),
         ]);
 
+      
         // LOGIKA STATUS
         if (in_array($request->transaction_status, ['settlement', 'capture'])) {
 
@@ -35,9 +38,40 @@ class PaymentsCallbackController extends Controller
                 'paid_at'=> now()
             ]);
 
-            $payment->membership->update([
-                'status' => 'active'
-            ]);
+            $membership = $payment->membership;
+
+            $lastMembership = Membership::where('member_id',$membership->member_id)
+            ->whereIn('status',['active','schedule'])
+            ->where('id','!=',$membership->id)
+            ->orderBy('end','desc')
+            ->first();
+
+
+            if($lastMembership && Carbon::parse($lastMembership->end)->isFuture()){
+                $start = Carbon::parse($lastMembership->end);
+                $status = 'schedule';
+            }else{
+                $start = now();
+                $status = 'active';
+            }
+ 
+            switch($membership->paket->durasi_satuan){
+                case 'day':
+                    $end = $start->copy()->addDays($membership->paket->durasi_angka);
+                    break;
+                case 'month':
+                    $end = $start->copy()->addMonths($membership->paket->durasi_angka);
+                    break;
+                case 'year':
+                    $end = $start->copy()->addYears($membership->paket->durasi_angka);
+            }
+                
+
+                $membership->update([
+                    'start' => $start,
+                    'end' => $end,
+                    'status' => $status,
+                ]);
 
             $payment->membership->member->update([
                 'status' => 'active'

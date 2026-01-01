@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('member_id')->constrained('member')->onDelete('cascade');
             $table->foreignid('paket_id')->constrained('paket')->onDelete('cascade');
-            $table->date('start');
-            $table->date('end');
+            $table->date('start')->nullable();
+            $table->date('end')->nullable();
             $table->enum('status',['active','nonactive','expired','schedule'])->default('nonactive');
             $table->timestamps();
         });

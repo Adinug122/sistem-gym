@@ -22,26 +22,31 @@ class DashboardController extends Controller
     $user = Auth()->user();
     $member = Member::where('user_id',$user->id)->firstOrFail();
 
-    $membership = Membership::with('paket')->where( 'member_id',$member->id)->latest()
-    ->firstOrFail();
+    $membership = Membership::with('paket')->where( 'member_id',$member->id)
+    ->whereIn('status',['active','schedule'])
+    ->orderBy('start','asc')
+    ->get();
+
+    $namaPaket = 'Tidak Ada Paket';
+    $endString = '-';
+    $sisaHari = 0;
+    $totalPaket = 0;
+
+    if($membership->isNotEmpty()){
+        $current = $membership->firstWhere('status','active') ?? $membership->first();
+        $namaPaket = $current->paket->nama;
+        $finalDate = $membership->max('end');
+        $end = Carbon::parse($finalDate)->translatedFormat('d M Y');
+
+        $sisaHari = (int) ceil(Carbon::now()->diffInDays(Carbon::parse($finalDate),false));
+
+    $totalPaket = $membership->count();
+    }
     
  
 
-  $end = Carbon::parse($membership->end)->translatedFormat('d F Y');
-
-$sisa = Carbon::now()->diffInDays($membership->end, false);
-
-$sisa_asli = (int) ceil($sisa);
-return view('hai',compact('membership','end','sisa_asli'));
+return view('hai',compact('membership','namaPaket','finalDate','end','sisaHari','totalPaket'));
     }
 
-    public function handle(){
-        Membership::where('status','active')
-        ->where('end','<',now())
-        ->update(['status'=>'expired']);
 
-        Membership::where('status','schedule')
-        ->where('end','<=',now())
-        ->update(['status'=>'active']);
-    }    
 }
