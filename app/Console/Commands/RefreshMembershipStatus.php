@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Member;
 use App\Models\Membership;
 use Illuminate\Console\Command;
 
@@ -34,5 +35,21 @@ class RefreshMembershipStatus extends Command
         ->where('start','<=',now())
         ->update(['status' => 'active']);
            $this->info("Expired: $expired | Activated: $activated");
+      
+      $expiredMember = Member::where('status','active')
+                      ->whereDoesntHave('membership',function($query){
+                        $query->where('status','active');
+                      })
+                      ->update(['status' => 'nonactive']);
+           
+        $revived = Member::where('status','nonactive')
+        ->wherehas('membership',function($q){
+          $q->where('status','active');
+        })
+        ->update(['status' => 'active']);
+
+ $this->info("nonactive member:  $expiredMember | Active Member: $revived");
+
+
     }
 }

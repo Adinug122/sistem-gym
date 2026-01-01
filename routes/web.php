@@ -37,6 +37,10 @@ Route::get('/dashboard', function () {
 Route::get('/member', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/scan',function(){
+    return view('scan.index');
+})->name('scan');
+
 Route::get('/trainer',[TrainerController::class,'index'])->name('trainer.index');
 Route::get('/trainer/create',[TrainerController::class,'create'])->name("trainer.create");
 Route::post('/trainer',[TrainerController::class,'store'])->name("trainer.store");
