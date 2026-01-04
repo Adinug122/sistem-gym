@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gym', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('location');
-            $table->string('qr_code');
-            $table->timestamps();
+        Schema::table('program_latihan', function (Blueprint $table) {
+          $table->foreignId('trainer_id')->after('id')->constrained('trainer')->onDelete('cascade');
         });
     }
 
@@ -25,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gym');
+        Schema::table('program_latihan', function (Blueprint $table) {
+            $table->dropForeign(['trainer_id']);
+        $table->dropColumn('trainer_id');
+        });
     }
 };

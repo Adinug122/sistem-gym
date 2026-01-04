@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Membership;
 use App\Models\Paket;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Jadwal;
+use App\Models\ProgramLatihan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Member;
 use Carbon\Carbon;
@@ -15,12 +16,14 @@ class DashboardController extends Controller
 {
     public function index(){
         $paket = Paket::all();
+            $program = ProgramLatihan::all();
+       $jadwal = Jadwal::with('program')->latest()->limit(6)->get();
 
-        return view('welcome',compact('paket'));
+        return view('welcome',compact('paket','program','jadwal'));
     }
 
     public function dashboard(){
-    $user = Auth()->user();
+    $user = Auth::user();
     $member = Member::where('user_id',$user->id)->firstOrFail();
 
         $membership = Membership::with('paket')->where( 'member_id',$member->id)
@@ -58,7 +61,6 @@ class DashboardController extends Controller
     }
     $test = QrCode::size(200)->generate(Auth::user()->member->id);
         
- 
 
 return view('hai',compact(
     'membership','namaPaket',

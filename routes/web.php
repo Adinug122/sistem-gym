@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PaketController;
+use App\Http\Controllers\ProgramLatihanController;
 use App\Http\Controllers\TrainerController;
 use App\Models\Paket;
+use App\Models\ProgramLatihan;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +31,8 @@ Route::middleware(['role:trainer'])->group(function(){
 Route::get('/trainer',function(){
     return view('trainer');
 })->name('trainer');
+Route::resource('program',ProgramLatihanController::class);
+Route::resource('jadwal',JadwalController::class);
 });
 
 
@@ -40,6 +46,8 @@ Route::get('/member', function () {
 Route::get('/scan',function(){
     return view('scan.index');
 })->name('scan');
+Route::post('/absensi',[AbsensiController::class,'store'])->name('absensi.store');
+
 
 Route::get('/trainer',[TrainerController::class,'index'])->name('trainer.index');
 Route::get('/trainer/create',[TrainerController::class,'create'])->name("trainer.create");
@@ -49,6 +57,8 @@ Route::put('/trainer{id}',[TrainerController::class,'update'])->name('trainer.up
 Route::delete('/trainer/{id}',[TrainerController::class,'destroy'])->name('trainer.destroy');
 Route::resource('paket',PaketController::class);
 Route::resource('member',MemberController::class);
+Route::get('/member/{id}/card',[MemberController::class,'cetakKartu'])->name('cetak');
+
 });
 
 

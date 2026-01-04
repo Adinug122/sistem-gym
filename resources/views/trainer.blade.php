@@ -1,1 +1,1 @@
-haiii
+<x-traineer></x-traineer>

@@ -9,7 +9,6 @@ class Membership extends Model
     protected $table = 'membership';
     protected $fillable = ['member_id','paket_id','start','end','status'];
 
-
     public function payments()
 {
     return $this->hasMany(Payments::class);

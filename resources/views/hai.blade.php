@@ -56,10 +56,19 @@
             </nav>
 
             <div class="p-4 border-t border-slate-800">
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-slate-800 hover:text-red-400 transition-all">
-                    <i class="fas fa-sign-out-alt w-5"></i>
-                    <span class="font-medium">Logout</span>
-                </a>
+                 <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                <button type="submit" class="flex items-center rounded-lg w-full  hover:bg-gym-600 ">
+                   
+                    <div class="h-10 w-10  p-[2px] flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#FFFFFF">
+                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                    </div>
+                <div>
+                    <h1 class="font-semibold text-xl text-white">Keluar</h1>
+                </div>
+            </button>
+               </form>
             </div>
         </aside>
 

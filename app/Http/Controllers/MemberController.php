@@ -8,17 +8,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Password;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       
-        $member = Member::all();
+        $search = $request->input('search');
+         
+   $member = Member::with('user')
+        ->when($search, function ($query) use ($search) {
+            $query->whereHas('user', function ($subQuery) use ($search) {
+                $subQuery->where('name', 'like', '%' . $search . '%');
+            });
+        })->latest()->paginate(10);
+
         return view('member.index',compact('member'));
+    }
+    
+    public function cetakKartu($id){
+     $member = Member::with('user')->findOrFail($id);
+       $qrcode = QrCode::size(200)->generate($member->id);
+        
+       return view('member.card',compact('member','qrcode'));
     }
 
     /**
@@ -84,9 +99,9 @@ class MemberController extends Controller
          $member = Member::with('user')->findOrFail($id);
          $user = $member->user;
       $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',Rule::unique('users','email')->ignore($user->id),
-            'phone' => 'required|string|unique:member,phone',
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email',Rule::unique('users','email')->ignore($user->id),
+            'phone' => 'nullable|string|unique:member,phone',
         ]);
 
     

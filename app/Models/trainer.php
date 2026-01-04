@@ -11,7 +11,7 @@ class trainer extends Model
 
     protected $fillable = ['user_id','status','specialis'];
 
-    public function User(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
 
@@ -21,4 +21,5 @@ class trainer extends Model
        public function pilihProgram(){
         return $this->hasMany(PilihProgram::class);
     }
+    
 }

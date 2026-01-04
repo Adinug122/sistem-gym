@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jadwal extends Model
 {
-    protected $fillable = ['start','end','status','pilih_progr_id'];
+    protected $table = 'jadwal';
+    protected $fillable = ['hari','jam_mulai','jam_selesai','program_id'];
 
-    public function pilihProgram(){
-        return $this->belongsTo(PilihProgram::class);
+    public function program(){
+        return $this->belongsTo(ProgramLatihan::class);
     }
 }

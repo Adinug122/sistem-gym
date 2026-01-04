@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            $table->enum('status',['active','nonactive'])->default('active');
-            $table->date('start');
-            $table->date('end');
-            $table->foreignId('pilih_id')->constrained('pilih_program')->onDelete('cascade');
+            $table->string('hari');
+            $table->time('jam_mulai');  
+            $table->time('jam_selesai'); 
+            $table->foreignId('program_id')->constrained('program_latihan')->onDelete('cascade');
             $table->timestamps();
         });
     }

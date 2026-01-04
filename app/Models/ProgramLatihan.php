@@ -7,10 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProgramLatihan extends Model
 {
-    protected $fillable = ['nama_program','description'];
+    protected $table = 'program_latihan';
+    protected $fillable = ['nama','desciption','image','trainer_id'];
 
 
-    public function pilihProgram(){
-        return $this->hasMany(PilihProgram::class);
+    public function jadwal(){
+        return $this->hasMany(Jadwal::class);
     }
+    public function trainer()
+{
+  
+    return $this->belongsTo(trainer::class, 'trainer_id');
+}
 }

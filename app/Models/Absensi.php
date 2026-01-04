@@ -6,12 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Absensi extends Model
 {
-    protected $fillable = ['member_id','checkin_time','gym_id'];
+    protected $table ='absensi';
+    protected $fillable = ['member_id','checkin_time',];
 
-    public function gym()
-{
-    return $this->belongsTo(Gym::class);
-}
 
 public function member()
 {

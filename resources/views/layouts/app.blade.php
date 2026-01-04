@@ -30,6 +30,37 @@
       
         .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+
+     #reader__dashboard_section_swaplink {
+        display: none !important;
+    }
+
+    #reader img{
+        display: none !important;
+    }
+    #reader button{
+        background-color: red;
+        color:white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        transition: ease-in-out;
+    }
+    #reader button:hover{
+        background-color: rgb(200, 33, 33)
+    }
+    #reader select {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #dbd1d1;
+        background-color: #fbf9f9;
+        color: #374151;
+        outline: none;
+        margin-right: 5px;
+    }
     </style>
     </head>
     <body class="font-sans antialiased">

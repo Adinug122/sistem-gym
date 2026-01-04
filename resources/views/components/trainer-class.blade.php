@@ -1,3 +1,4 @@
+   @props(['jadwal'])
    <section class="relative w-full h-[650px] mt-20 flex items-center">
             
         <div class="absolute inset-0 z-0">
@@ -57,65 +58,28 @@
         
         <div class="swiper mySwiper !pb-12">
              <div class="swiper-wrapper items-center">
-                 <div class="swiper-slide transition-all duration-300 ease-out">
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div class="relative h-[300px] w-full">
-                            <img src="{{ asset('img/foto1.jpg') }}" class="w-full h-full object-cover">
-                            <div class="absolute bottom-4 left-0 w-full text-center text-white font-bold text-xl drop-shadow-md">
-                                Strength and Conditioning
-                            </div>
-                        </div>
-                        <div class="p-6 text-center border-t">
-                            <h3 class="text-2xl font-bold text-gray-900 uppercase">HYROX</h3>
-                            <a href="#" class="text-gray-500 hover:text-red-600 font-medium text-sm mt-2 block">View class</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide transition-all duration-300 ease-out">
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div class="relative h-[300px] w-full">
-                            <img src="{{ asset('img/foto1.jpg') }}" class="w-full h-full object-cover">
-                            <div class="absolute bottom-4 left-0 w-full text-center text-white font-bold text-xl drop-shadow-md">
-                                Strength and Conditioning
-                            </div>
-                        </div>
-                        <div class="p-6 text-center border-t">
-                            <h3 class="text-2xl font-bold text-gray-900 uppercase">BODYPUMP</h3>
-                            <a href="#" class="text-gray-500 hover:text-red-600 font-medium text-sm mt-2 block">View class</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide transition-all duration-300 ease-out">
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div class="relative h-[300px] w-full">
-                            <img src="{{ asset('img/foto1.jpg') }}" class="w-full h-full object-cover">
-                            <div class="absolute bottom-4 left-0 w-full text-center text-white font-bold text-xl drop-shadow-md">
-                                Cardio
-                            </div>
-                        </div>
-                        <div class="p-6 text-center border-t">
-                            <h3 class="text-2xl font-bold text-gray-900 uppercase">BODYCOMBAT</h3>
-                            <a href="#" class="text-gray-500 hover:text-red-600 font-medium text-sm mt-2 block">View class</a>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="swiper-slide transition-all duration-300 ease-out">
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div class="relative h-[300px] w-full">
-                            <img src="{{ asset('img/foto1.jpg') }}" class="w-full h-full object-cover">
-                            <div class="absolute bottom-4 left-0 w-full text-center text-white font-bold text-xl drop-shadow-md">
-                                Yoga
-                            </div>
-                        </div>
-                        <div class="p-6 text-center border-t">
-                            <h3 class="text-2xl font-bold text-gray-900 uppercase">YOGA FLEX</h3>
-                            <a href="#" class="text-gray-500 hover:text-red-600 font-medium text-sm mt-2 block">View class</a>
-                        </div>
-                    </div>
-                </div>
+               @foreach ($jadwal as $item)
+                 
+               <div class="swiper-slide transition-all duration-300 ease-out">
+                  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                      <div class="relative h-[300px] w-full">
+                      @if($item->program->image)
+                            <img src="{{ asset('storage/'. $item->program->image) }}" class="w-full h-full object-cover">
+                        @else
+                            {{-- Gambar placeholder kalau admin lupa upload --}}
+                            <div class="flex items-center justify-center h-full text-gray-400">No Image</div>
+                        @endif
+                          <div class="absolute bottom-4 left-0 w-full text-center text-white font-bold text-xl drop-shadow-md">
+                           {{ $item->program->trainer->user->name ?? 'Tim Gym' }}
+                          </div>
+                      </div>
+                      <div class="p-6 text-center border-t">
+                          <h3 class="text-2xl font-bold text-gray-900 uppercase">{{ $item->program->nama }}</h3>
+                          <a href="#" class="text-gray-500 hover:text-red-600 font-medium text-sm mt-2 block">View class</a>
+                      </div>
+                  </div>
+              </div>
+               @endforeach
 
             </div>
         </div>
