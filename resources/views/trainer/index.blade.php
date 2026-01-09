@@ -27,6 +27,7 @@
                 <thead class="bg-gray-50 text-gray-500 border-b border-gray-100">
                     <tr>
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Nama Trainer</th>
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Foto</th>
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">spesialis</th>
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Status</th>
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Tanggal Join</th>
@@ -45,13 +46,22 @@
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <img src="{{ asset('storage/'.$item->user->avatar) }}" alt="" class="w-full h-52 object-cover grayscale group-hover:grayscale-0 transition duration-300">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {{ $item->specialis }}
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
+                           @if ($item->status === 'active')   
                             <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Aktif
+                                {{ $item->status }}
                             </span>
+                            @else
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                {{ $item->status }}
+                            </span>
+                            @endif
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">

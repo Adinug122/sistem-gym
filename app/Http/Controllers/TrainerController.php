@@ -38,13 +38,21 @@ class TrainerController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|unique:users,email',
             'specialis' => 'required|string',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'status' => 'required|in:active,nonactive'
         ]);
+
+        $image = null;
+
+        if($request->hasFile('avatar')){
+         $image = $request->file('avatar')->store('avatar','public');   
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => 'trainer',
+            'avatar' => $image,
             'password' => bcrypt(Str::random('10'))
         ]);
 

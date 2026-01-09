@@ -13,6 +13,7 @@ use App\Models\Membership;
 use App\Models\Payments;
 use Exception;
 use Faker\Provider\Payment;
+use Illuminate\Support\Facades\DB;
 
 class MembershipController extends Controller
 {
@@ -21,7 +22,11 @@ class MembershipController extends Controller
      */
     public function index()
     {
-        return view('membership.index');
+    
+        $membership = Membership::with(['member.user','paket'])
+        ->latest()->paginate(10);
+
+        return view('membership.index',compact('membership'));
     }
 
     /**
@@ -29,12 +34,69 @@ class MembershipController extends Controller
      */
     public function create()
     {
-        return view('membership.create');
+        $members = Member::with('user')->get();
+    $pakets = Paket::all();
+        return view('membership.create',compact('members','pakets'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
+    public function simpan(Request $request){
+        $request->validate([
+            'member_id' => 'required|exists:member,id',
+            'paket_id' => 'required|exists:paket,id',
+            'metode_bayar' => 'required|string',
+        
+        ]);
+
+        
+        $paket = Paket::findOrFail($request->paket_id);
+
+        $tanggalMulai = Carbon::now();
+
+
+           if ($paket->durasi_satuan == 'day') {
+         $tanggalBerakhir = Carbon::now()->addDays($paket->durasi_angka);
+        } elseif ($paket->durasi_satuan == 'month') {
+           $tanggalBerakhir = Carbon::now()->addMonths($paket->durasi_angka);
+        } elseif ($paket->durasi_satuan == 'year') {
+          $tanggalBerakhir = Carbon::now()->addYears($paket->durasi_angka);
+        }
+
+       
+
+        DB::transaction(function () use ($request, $paket, $tanggalMulai, $tanggalBerakhir) {
+
+            $member = Member::findOrFail($request->member_id);
+        $member->update(['status' => 'active']);
+        
+          $membership =  Membership::create([
+                'member_id' => $request->member_id,
+                'paket_id' => $paket->id,
+                'start' => $tanggalMulai,
+                'end' => $tanggalBerakhir,
+                'status' => 'active'
+            ]);
+
+            
+            Payments::create([
+                'membership_id' => $membership->id,
+                'order_id' => 'TRZ-' . mt_rand(1000,9999) . '-' . time(),
+                'amount' => $paket->harga,
+                'payment_type' => $request->metode_bayar,
+                'status' => 'success',
+                'transaction_status' => 'settlement',
+                'paid_at' => now(),
+            ]);
+
+            
+             });
+return redirect()->route('admin.membership.index')
+                     ->with('success', 'Membership berhasil ditambahkan ');
+           
+        }
     public function store(Request $request)
     {
 

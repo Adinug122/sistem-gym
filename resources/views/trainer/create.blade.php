@@ -15,7 +15,7 @@
     </div>
 @endif
 
-            <form action="{{ route('admin.trainer.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.trainer.store') }}" method="POST" class="space-y-4" enctype="multipart/form-data"> 
                 @csrf
 
                 <div>
@@ -31,6 +31,10 @@
                 <div>
                     <label class="block font-medium">Specialis</label>
                     <input type="text" name="specialis" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
+                </div>
+                <div>
+                    <label class="block font-medium">Foto</label>
+                    <input type="file" name="avatar" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
                 </div>
 
                 <div>

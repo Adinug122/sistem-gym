@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Models\Membership;
 use App\Models\Absensi;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,28 @@ class AbsensiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = absensi::with(['member.user','member.membership']);
+
+        if($request->has('bulan') && $request->bulan != null){
+            $date = Carbon::parse($request->bulan);
+
+            $query->whereYear('created_at', $date->year)
+                ->whereMonth('created_at',$date->month);
+        }
+        
+    
+        if($request->has('search') && $request->search != null){
+            $query->whereHas('member.user',function ($q) use ($request) {
+                $q->where('name','like','%' . $request->search . '%');
+            });
+        }
+        
+        $checkin = $query->latest()->paginate(10)->withQueryString();
+
+        return view('absensi.index',compact('checkin'));
+
     }
 
     /**

@@ -37,9 +37,15 @@
                       <span class="font-medium">Paket</span>
                 </a>
 
-                <a href="#" class="flex items-center px-4 py-3 text-gray-400 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 group">
-                    <svg class="w-5 h-5 mr-3 group-hover:text-gym-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <a href="{{ route('admin.payment.index') }}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 group
+                   {{ request()->routeIs('admin.payment.index') ? 'bg-gym-500 text-white  shadow-lg shadow-gym-600/20 group hover:bg-gym-500 group-hover:text-white' : ''}}">
+                    <svg class="w-5 h-5 mr-3 group-hover:text-gym-500 {{ request()->routeIs('admin.payment.index') ? 'group-hover:text-white  transition-transform group-hover:scale-110 ': '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span class="font-medium">Pembayaran</span>
+                </a>
+                <a href="{{ route('admin.membership.index') }}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 group 
+                     {{ request()->routeIs('admin.membership.index') ? 'bg-gym-500 text-white  shadow-lg shadow-gym-600/20 group hover:bg-gym-500 group-hover:text-white' : ''}}">
+               <svg  class="w-5 h-5 mr-3 group-hover:text-gym-500 {{ request()->routeIs('admin.membership.index') ? 'group-hover:text-white  transition-transform group-hover:scale-110 ': '' }}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.37 36C22.82 30.75 27.89 27 33.73 27.62C39.29 28.21 43.71 32.9 43.99 38.48C44.06 39.95 43.86 41.36 43.43 42.67C43.17 43.47 42.39 44 41.54 44H11.7584C6.71004 44 2.92371 39.3814 3.91377 34.4311L9.99994 4H21.9999L25.9999 11L17.43 17.13L14.9999 14" stroke="currentColor" stroke-width="4" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17.4399 17.13L22 34" stroke="currentColor" stroke-width="4" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    <span class="font-medium">Membership</span>
                 </a>
 
                 <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2">Sistem</p>
