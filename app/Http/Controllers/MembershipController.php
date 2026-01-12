@@ -72,6 +72,7 @@ class MembershipController extends Controller
             $member = Member::findOrFail($request->member_id);
         $member->update(['status' => 'active']);
         
+        
           $membership =  Membership::create([
                 'member_id' => $request->member_id,
                 'paket_id' => $paket->id,

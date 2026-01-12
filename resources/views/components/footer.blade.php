@@ -1,7 +1,7 @@
 <footer class="bg-gray-900 pt-32 pb-10 text-gray-300">
     <div class="max-w-7xl mx-auto px-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
             
             <div>
                 <div class="text-3xl font-black text-white italic mb-6">
@@ -34,29 +34,9 @@
                 </ul>
             </div>
 
+          
             <div>
-                <h3 class="text-white font-bold text-lg mb-6">PROGRAM POPULER</h3>
-                <ul class="space-y-4">
-                    <li><a href="#" class="hover:text-red-500 transition-colors">BodyPump</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors">Yoga Flow</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors">HIIT Cardio</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors">Zumba</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors">Personal Trainer</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="text-white font-bold text-lg mb-6">JANGAN KETINGGALAN</h3>
-                <p class="text-gray-400 mb-4 text-sm">Dapatkan info promo membership & tips latihan via email.</p>
-                
-                <form action="" class="mb-8">
-                    <div class="relative">
-                        <input type="email" placeholder="Email Anda..." class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all">
-                        <button type="submit" class="absolute right-1 top-1 bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </button>
-                    </div>
-                </form>
+           
 
                 <h3 class="text-white font-bold text-lg mb-4">LOKASI KAMI</h3>
                 <p class="text-gray-400 text-sm flex gap-2 items-start">
@@ -68,7 +48,7 @@
         </div>
 
         <div class="border-t border-gray-800 pt-8 mt-12 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <p>&copy; 2024 Defind Gym. All rights reserved.</p>
+            <p>&copy; 2024 IRON Gym. All rights reserved.</p>
             <div class="flex gap-6 mt-4 md:mt-0">
                 <a href="#" class="hover:text-white transition">Privacy Policy</a>
                 <a href="#" class="hover:text-white transition">Terms of Service</a>

@@ -24,7 +24,23 @@ class DashboardController extends Controller
 
         return view('welcome',compact('paket','program','jadwal','trainer'));
     }
+public function daftarJadwal(){
+        $program = ProgramLatihan::all();
+     $jadwal = Jadwal::with('program')->latest()->get();
 
+     return view('daftarJadwal',compact('jadwal'));
+}
+public function daftarPaket(){
+       $paket = Paket::latest()->limit(3)->get();
+
+     return view('daftarPaket',compact('paket'));
+}
+
+public function daftarTrainer(){
+      $trainer = trainer::with('user')->get();
+
+      return view('daftarTrainer',compact('trainer'));
+}
     public function dashboard(){
     $user = Auth::user();
     $member = Member::where('user_id',$user->id)->firstOrFail();

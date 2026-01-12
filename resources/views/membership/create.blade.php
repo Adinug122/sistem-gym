@@ -58,7 +58,7 @@
 
                 {{-- Tombol Aksi --}}
                 <div class="flex justify-between gap-3 pt-4">
-                    <a href="{{ route('membership.index') }}"
+                    <a href="{{ url()->previous() }}"
                        class="w-1/2 text-center border border-gray-300 text-gray-600 px-4 py-2 rounded hover:bg-gray-100">
                         Batal
                     </a>

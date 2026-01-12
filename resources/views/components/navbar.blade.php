@@ -1,3 +1,4 @@
+
 <nav class="top-0 left-0 hidden md:flex item-center justify-between relative">
    
     <div >
@@ -11,30 +12,60 @@
     </a>
 </li>
         <li>
-            <a href="" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Membership
+            <a href="{{ route('daftar.paket') }}" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Membership
             <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
             </a></li>
-        <li> <a href="" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Jadwal
+        <li> <a href="{{ route('daftar.jadwal') }}" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Jadwal
             <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
             </a></li>
-        <li class="mr-7"> <a href="" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Trainer
+        <li class="mr-7"> <a href="{{ route('daftar.trainer') }}" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Trainer
             <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
         </li>
-        @auth 
-            <li class="mr-7"> <a href="{{ route('dashboard.user') }}" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Dashboard
-            <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        </li>   
+  @auth
+    @php
+        $role = auth()->user()->role;
+    @endphp
 
-        @else
-         <li class="relative group">
-            <div
-                class=" absolute -inset-0.5 blur-xl bg-gym-500 rounded-xl  opacity-75 group-hover:opacity-100 transition duration-200">
-            </div>
-            <a href="{{ route('register') }}" class=" relative rounded-xl z-10 bg-gym-500 p-4 text-white font-bold">Join Online</a>
+    @if ($role === 'admin')
+        <li class="mr-7">
+            <a href="{{ route('admin.dashboard') }}"
+               class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">
+                Dashboard
+                <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
         </li>
-        @endauth
+
+    @elseif ($role === 'member')
+        <li class="mr-7">
+            <a href="{{ route('dashboard.user') }}"
+               class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">
+                Dashboard
+                <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        </li>
+
+    @elseif ($role === 'trainer')
+        <li class="mr-7">
+            <a href="{{ route('trainer') }}"
+               class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">
+                Dashboard
+                <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        </li>
+    @endif
+@endauth
+
+@guest
+    <li class="relative group">
+        <div class="absolute -inset-0.5 blur-xl bg-gym-500 rounded-xl opacity-75 group-hover:opacity-100 transition duration-200"></div>
+        <a href="{{ route('register') }}"
+           class="relative z-10 rounded-xl bg-gym-500 p-4 text-white font-bold">
+            Join Online
+        </a>
+    </li>
+@endguest
+
         
     </ul>
 </nav>

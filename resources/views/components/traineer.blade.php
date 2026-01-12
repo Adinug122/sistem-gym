@@ -56,7 +56,19 @@
                     <svg class="w-5 h-5 mr-3 group-hover:text-gym-500  {{ request()->routeIs('admin.trainer.index') ? 'group-hover:text-white  transition-transform group-hover:scale-110 ': '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     <span class="font-medium">Jadwal</span>
                 </a>
-            
+               <a href="{{ route('landing') }}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 group">
+                <svg class="w-5 h-5 mr-3 group-hover:text-gym-500  xmlns="http://www.w3.org/2000/svg"
+     class="w-5 h-5"
+     fill="none"
+     viewBox="0 0 24 24"
+     stroke="currentColor"
+     stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round"
+        d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75v-4.5h-4.5V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/>
+               </svg>
+
+                    <span class="font-medium">Beranda</span>
+                </a>
             </nav>
 
             <div class="p-4 border-t border-gray-800">

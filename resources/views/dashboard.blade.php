@@ -209,122 +209,128 @@
 
             </div>
         </main>
-       <script>
-        // Set Font Global agar sesuai tema
-        Chart.defaults.font.family = "'Inter', sans-serif";
-        Chart.defaults.color = '#64748b'; // Text gray-500
+    <script>
+    // Set Font Global agar sesuai tema
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.color = '#64748b'; // Text gray-500
 
-        // --- 1. CONFIG LINE CHART (Pertumbuhan Member) ---
-        const ctxMember = document.getElementById('memberChart').getContext('2d');
-        
-        // Buat Gradient Merah yang Modern
-        let gradientMember = ctxMember.createLinearGradient(0, 0, 0, 400);
-        gradientMember.addColorStop(0, 'rgba(225, 29, 72, 0.4)'); // Merah Transparan di atas
-        gradientMember.addColorStop(1, 'rgba(225, 29, 72, 0.0)'); // Hilang di bawah
+    // --- 1. CONFIG LINE CHART (Pertumbuhan Member) ---
+    const ctxMember = document.getElementById('memberChart').getContext('2d');
+    
+    // Buat Gradient Merah yang Modern
+    let gradientMember = ctxMember.createLinearGradient(0, 0, 0, 400);
+    gradientMember.addColorStop(0, 'rgba(225, 29, 72, 0.4)'); // Merah Transparan di atas
+    gradientMember.addColorStop(1, 'rgba(225, 29, 72, 0.0)'); // Hilang di bawah
 
-        new Chart(ctxMember, {
-            type: 'line',
-            data: {
-                labels: {!! json_encode($chartMemberLabels) !!},
-                datasets: [{
-                    label: 'Member Baru',
-                    data: {!! json_encode($chartMemberData) !!}, // Data Dummy (Nanti bisa didinamiskan)
-                    borderColor: '#e11d48', // gym-600
-                    backgroundColor: gradientMember,
-                    borderWidth: 3,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: '#e11d48',
-                    pointBorderWidth: 2,
-                    pointRadius: 6,
-                    pointHoverRadius: 8,
-                    fill: true, 
-                    tension: 0.4 
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        padding: 12,
-                        cornerRadius: 8,
-                        titleFont: { size: 13 },
-                        bodyFont: { size: 14, weight: 'bold' },
-                        displayColors: false,
-                        callbacks: {
-                            label: function(context) {
-                                return context.parsed.y + ' Member';
-                            }
+    new Chart(ctxMember, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($chartMemberLabels) !!},
+            datasets: [{
+                label: 'Member Baru',
+                data: {!! json_encode($chartMemberData) !!},
+                borderColor: '#e11d48', // gym-600
+                backgroundColor: gradientMember,
+                borderWidth: 3,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#e11d48',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                fill: true, 
+                tension: 0.4 
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    padding: 12,
+                    cornerRadius: 8,
+                    titleFont: { size: 13 },
+                    bodyFont: { size: 14, weight: 'bold' },
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y + ' Member';
                         }
                     }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8' }
                 },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#94a3b8' }
+                y: {
+                    beginAtZero: true,
+             
+                    ticks: {
+                        stepSize: 1, // Paksa lompat per 1 angka
+                        callback: function(value) {
+                            if (Math.floor(value) === value) {
+                                return value; // Hanya tampilkan jika angka bulat
+                            }
+                        }
                     },
-                    y: {
-                        beginAtZero: true,
-                        grid: { 
-                            borderDash: [5, 5],
-                            color: '#f1f5f9' 
-                        },
-                        border: { display: false }
-                    }
+                  
+                    grid: { 
+                        borderDash: [5, 5],
+                        color: '#f1f5f9' 
+                    },
+                    border: { display: false }
                 }
             }
-        });
+        }
+    });
 
-        // --- 2. CONFIG DOUGHNUT CHART (Revenue) ---
-        const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+    // --- 2. CONFIG DOUGHNUT CHART (Revenue) ---
+    const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
 
-        new Chart(ctxRevenue, {
-            type: 'doughnut',
-            data: {
-                // Ambil Label dari Controller
-                labels: {!! json_encode($donutLabels) !!},
-                datasets: [{
-                    // Ambil Data Angka dari Controller
-                    data: {!! json_encode($donutData) !!},
-                    backgroundColor: [
-                        '#e11d48', // Merah gym-600
-                        '#1F2937', // Hitam
-                        '#9CA3AF', // Abu-abu
-                        '#F59E0B', // Kuning
-                        '#10B981'  // Hijau (Typo diperbaiki disini)
-                    ],
-                    borderWidth: 0,
-                    hoverOffset: 5
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '80%', 
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        padding: 12,
-                        callbacks: {
-                            // Perbaikan Format: Tampilkan Rupiah, bukan Persen
-                            label: function(context) {
-                                let label = context.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                // Format ke Rupiah Indonesia
-                                label += new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(context.raw);
-                                return label;
+    new Chart(ctxRevenue, {
+        type: 'doughnut',
+        data: {
+            labels: {!! json_encode($donutLabels) !!},
+            datasets: [{
+                data: {!! json_encode($donutData) !!},
+                backgroundColor: [
+                    '#e11d48', // Merah gym-600
+                    '#1F2937', // Hitam
+                    '#9CA3AF', // Abu-abu
+                    '#F59E0B', // Kuning
+                    '#10B981'  // Hijau
+                ],
+                borderWidth: 0,
+                hoverOffset: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '80%', 
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    padding: 12,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
                             }
+                            label += new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(context.raw);
+                            return label;
                         }
                     }
                 }
             }
-        });
-    </script>
+        }
+    });
+</script>
 </x-app-layout>
 
   

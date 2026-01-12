@@ -22,11 +22,13 @@ Route::get('/',[DashboardController::class,'index'])->name('landing');
 Route::get('/jadwal/{id}', [JadwalController::class, 'show'])
     ->name('jadwal.show')
     ->whereNumber('id');
-
+Route::get('/daftar/jadwal',[DashboardController::class,'daftarJadwal'])->name('daftar.jadwal');
+Route::get('/daftar/paket',[DashboardController::class,'daftarPaket'])->name('daftar.paket');
+Route::get('/daftar/trainer',[DashboardController::class,'daftarTrainer'])->name('daftar.trainer');
 
 Route::middleware(['role:member'])->group(function(){
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
-Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard.user');
+Route::get('/dashboard',action: [DashboardController::class,'dashboard'])->name('dashboard.user');
 Route::get('/membership/success',[MembershipController::class,'success'])->name("success");
 Route::resource('membership',MembershipController::class);
 Route::get('/jadwal/user',[DashboardController::class,'jadwal'])->name('jadwal.user');

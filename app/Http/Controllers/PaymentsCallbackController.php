@@ -14,6 +14,15 @@ class PaymentsCallbackController extends Controller
     {
         Log::info('Midtrans Callback Masuk', $request->all());
 
+        $serverKey = config('services.midtrans.server_key');
+        
+        // Rumus Hash dari Dokumentasi Midtrans: SHA512(order_id + status_code + gross_amount + ServerKey)
+        $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+
+        if ($hashed !== $request->signature_key) {
+            Log::warning('Signature Key Invalid', ['order_id' => $request->order_id]);
+            return response()->json(['message' => 'Invalid Signature'], 403); // Tolak hacker
+        }
         $payment = Payments::where('order_id', $request->order_id)->first();
 
         if (!$payment) {
