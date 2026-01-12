@@ -45,8 +45,10 @@ class JadwalController extends Controller
        $request->validate([
         'program_id' => 'required|exists:program_latihan,id',
         'hari' => 'required|',
-        'jam_mulai' => 'required',
-        'jam_selesai' => 'required|after:jam_mulai',
+       'jam_mulai' => 'required|date_format:H:i', 
+        'jam_selesai'  => 'required|date_format:H:i|after:jam_mulai', 
+        'kuota_maksimal' => 'required|integer|min:1',
+        'ruangan' => 'required|string|max:255',
     ]);
 
     Jadwal::create($request->all());
@@ -59,7 +61,15 @@ class JadwalController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $jadwal = Jadwal::with('program')->findOrFail($id);
+
+        $kelasLain = Jadwal::with('program')
+        ->where('id', '!=' ,'$id')
+        ->inRandomOrder()
+        ->limit(3)
+        ->get();
+
+        return view('detailClass',compact('jadwal','kelasLain'));
     }
 
     /**
@@ -80,10 +90,21 @@ class JadwalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $jadwal = Jadwal::findOrFail($id);
-        
-   $jadwal->update($request->all());
+       $jadwal = Jadwal::findOrFail($id);
 
+ 
+    $validated = $request->validate([
+        'program_id'     => 'required|exists:program_latihan,id',
+        'hari'           => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+        'jam_mulai'      => 'required', 
+        'jam_selesai'    => 'required|after:jam_mulai', 
+        'kuota_maksimal' => 'required|integer|min:1',
+        'ruangan'        => 'required|string|max:255',
+        'status'         => 'required|in:active,cancelled,full'
+    ]);
+
+
+    $jadwal->update($validated);
     return redirect()->route('jadwal.index')->with('success', 'Jadwal diupdate!');
 }
 
@@ -99,4 +120,21 @@ class JadwalController extends Controller
 
         return redirect()->route('jadwal.index')->with('success','jadwal berhasil dihapus');
     }
+
+    public function peserta($id){
+      $jadwal = Jadwal::with(['bookings.member.user', 'program']) 
+                ->findOrFail($id);
+
+        $user = Auth::user();
+
+        if($user->role === 'trainer'){
+            $trainerLogin = $user->trainer;
+            if($jadwal->program->trainer_id !== $trainerLogin->id){
+            abort(403, 'AKSES DITOLAK: Ini bukan kelas Anda!');
+            }
+        }
+
+        return view('jadwal.peserta',compact('jadwal'));
+    }
+
 }

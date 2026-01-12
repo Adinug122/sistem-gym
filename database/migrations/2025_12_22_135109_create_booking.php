@@ -10,14 +10,13 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
+    
     {
-        Schema::create('pilih_program', function (Blueprint $table) {
+        Schema::create('booking', function (Blueprint $table) {
             $table->id();
             $table->foreignId('member_id')->constrained('member')->onDelete('cascade');
-            $table->foreignId('program_id')->constrained('program_latihan')->onDelete('cascade');
-            $table->foreignId('trainer_id')->constrained('trainer')->onDelete('cascade');
-            $table->enum('status',['active','nonactive'])->default('active');
-            $table->text('catatan')->nullable();
+            $table->foreignId('jadwal_id')->constrained('jadwal')->onDelete('cascade');
+            $table->string('kode_booking')->unique();
             $table->timestamps();
         });
     }

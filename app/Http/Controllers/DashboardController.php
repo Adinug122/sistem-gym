@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\booking;
 use App\Models\Membership;
 use App\Models\Paket;
 use Illuminate\Http\Request;
@@ -9,17 +10,19 @@ use App\Models\Jadwal;
 use App\Models\ProgramLatihan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Member;
+use App\Models\trainer;
 use Carbon\Carbon;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DashboardController extends Controller
 {
     public function index(){
-        $paket = Paket::all();
+        $paket = Paket::latest()->limit(3)->get();
             $program = ProgramLatihan::all();
        $jadwal = Jadwal::with('program')->latest()->limit(6)->get();
+        $trainer = trainer::with('user')->latest()->limit(4)->get();
 
-        return view('welcome',compact('paket','program','jadwal'));
+        return view('welcome',compact('paket','program','jadwal','trainer'));
     }
 
     public function dashboard(){
@@ -68,5 +71,17 @@ return view('hai',compact(
     ,'status','test'));
     }
 
+
+
+    public function jadwal(){
+        $user = Auth::user();
+
+        $booking = booking::with('jadwal.program','jadwal.program.trainer.user')
+            ->where('member_id' ,$user->member->id)
+            ->orderBy('created_at','desc')
+            ->get();
+
+        return view('jadwalUser',compact('booking'));
+    }
 
 }

@@ -46,7 +46,7 @@
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        <img src="{{ asset('storage/'.$item->user->avatar) }}" alt="" class="w-full h-52 object-cover grayscale group-hover:grayscale-0 transition duration-300">
+                        <img src="{{ asset('storage/'.$item->user->avatar) }}" alt="" class="w-full h-52 object-cover transition duration-300">
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {{ $item->specialis }}

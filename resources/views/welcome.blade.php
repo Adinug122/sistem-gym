@@ -17,7 +17,7 @@
 
 <x-how-it-works></x-how-it-works>
 
-<x-trainer></x-trainer>
+<x-trainer :trainer="$trainer"></x-trainer>
 <x-hero-bottom></x-hero-bottom>
 
 <x-faq></x-faq>

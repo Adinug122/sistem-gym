@@ -30,6 +30,10 @@
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Jam Mulai</th>
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Jam Selesai</th>
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Program Latihan</th>
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Tempat</th>
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Kuota</th>
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">status</th>
+                      
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -53,7 +57,16 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {{ $item->program->nama }}
                         </td>
-            
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      {{ $item->ruangan }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      {{ $item->kuota_maksimal }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      {{ $item->status }}
+                        </td>
+                    
                 
                         
                         <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium">
@@ -66,6 +79,11 @@
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
 </a>
+                 <a href="{{ route('peserta',$item->id) }}" class="text-gym-600 hover:text-gym-900 transition-colors" title="Edit Data">
+  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+</a>
+
+
                                                   
                                 <button @click="isOpen = true; actionUrl = '{{ route('jadwal.destroy', $item->id) }}'" class="z-20">
                                 <svg class="w-7 h-6 text-gym-600 hover:text-gym-900 transition-colors" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier"

@@ -16,7 +16,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.trainer.update', $trainer->id) }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.trainer.update', $trainer->id) }}" method="POST" class="space-y-4" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -50,6 +50,20 @@
                     >
                 </div>
 
+                 <div x-data="imagePreview('{{ asset('storage/'. $trainer->user->avatar) }}')">
+                    <label class="block font-medium">Foto</label>
+                    <div class="w-full h-48 border-2 border-dashed rounded-lg flex items-center justify-center overflow-hidden bg-gray-100">
+                        <template x-if="imageUrl">
+                            <img :src="imageUrl" class="w-full h-full object-cover">
+                        </template>
+                        <template x-if="!imageUrl">
+                                <span class="text-gray-600 text-sm">Preview Gambar</span>
+                        </template>
+                    </div>
+
+                    <input type="file"  accept="image/*" name="avatar" @change="previewImage" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
+                </div>
+
                 <div>
                     <label class="block font-medium">Status</label>
                     <select name="status" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
@@ -79,4 +93,17 @@
 
         </div>
     </div>
+    <script>
+        function imagePreview(urlAwal = null){
+            return{
+                imageUrl : urlAwal,
+                
+                previewImage(event){
+                    const file = event.target.files[0] 
+                    if(!file) return
+                    this.imageUrl = URL.createObjectURL(file)
+                }   
+            }
+        }
+    </script>
 </x-app-layout>

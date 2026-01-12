@@ -1,3 +1,4 @@
+@props(['trainer'])
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
 
@@ -11,74 +12,36 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
+            @forelse ($trainer as $item)
             <div class="group relative">
                 <div class="relative h-[400px] w-full overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=1887&auto=format&fit=crop" 
-                         alt="Trainer" 
+                    <img src="{{ asset('storage/'.$item->user->avatar) }} " 
+                         alt="{{ $item->user->name }}" 
                          class="h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0">
                     
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
 
                     <div class="absolute bottom-0 left-0 w-full p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold uppercase">Andi Pratama</h3>
-                        <p class="text-red-500 font-semibold text-sm mb-2">Body building Expert</p>
+                        <h3 class="text-xl font-bold uppercase">{{ $item->user->name }}</h3>
+                        <p class="text-red-500 font-semibold text-sm mb-2">{{ $item->specialis }}</p>
                         
                         <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 mt-3">
-                        <span class="text-xs text-gray-300">Certificat Body Building</span>
+                        <span class="text-xs text-gray-300">@if ($item->status == 'active')
+                            Trainer Aktif
+                        @else
+                            Trainer Libur / tidak Active
+                        @endif</span>
                         </div>
                     </div>
                 </div>
             </div>
+            @empty
+                <span class="text-xs text-gray-300">
+                    Belum ada Trainer 
+                </span>
+            @endforelse
 
-            <div class="group relative">
-                <div class="relative h-[400px] w-full overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=1887&auto=format&fit=crop" 
-                         alt="Trainer" 
-                         class="h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
-                    <div class="absolute bottom-0 left-0 w-full p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold uppercase">Siti Rahma</h3>
-                        <p class="text-red-500 font-semibold text-sm mb-2">Yoga & Pilates</p>
-                         <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 mt-3">
-                            <span class="text-xs text-gray-300">Certified Yoga Alliance</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="group relative">
-                <div class="relative h-[400px] w-full overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1770&auto=format&fit=crop" 
-                         alt="Trainer" 
-                         class="h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
-                    <div class="absolute bottom-0 left-0 w-full p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold uppercase">Erik Wijaya</h3>
-                        <p class="text-red-500 font-semibold text-sm mb-2">Crossfit & HIIT</p>
-                        <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 mt-3">
-                            <span class="text-xs text-gray-300">Ex-Atlet Nasional</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="group relative">
-                <div class="relative h-[400px] w-full overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1770&auto=format&fit=crop" 
-                         alt="Trainer" 
-                         class="h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
-                    <div class="absolute bottom-0 left-0 w-full p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold uppercase">Diana Putri</h3>
-                        <p class="text-red-500 font-semibold text-sm mb-2">Zumba & Cardio</p>
-                        <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 mt-3">
-                            <span class="text-xs text-gray-300">ZIN™ Member</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+           
         </div>
 
         <div class="text-center mt-12">

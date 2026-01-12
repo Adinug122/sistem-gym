@@ -72,8 +72,7 @@
             <!-- Page Content -->
           
          
-        
-          
+      
             <main class=" flex flex-col overflow-hidden bg-white">
                  <button x-show="!open" x-transition.opacity @click="open = !open"
             class="absolute top-5 left-5 z-50 md:hidden text-white hover:text-red-600 transition p-2">

@@ -75,7 +75,9 @@
                       </div>
                       <div class="p-6 text-center border-t">
                           <h3 class="text-2xl font-bold text-gray-900 uppercase">{{ $item->program->nama }}</h3>
-                          <a href="#" class="text-gray-500 hover:text-red-600 font-medium text-sm mt-2 block">View class</a>
+                   <a href="{{ route('jadwal.show', $item->id) }}" class="text-gray-500 hover:text-red-600 font-medium text-sm mt-2 block">
+        View class
+    </a>
                       </div>
                   </div>
               </div>

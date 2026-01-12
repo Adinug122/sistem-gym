@@ -2,7 +2,15 @@
     <div class="w-full max-w-md mx-auto mt-10 bg-white rounded-lg shadow-lg p-6">
         
         <h1 class="text-xl font-bold mb-4">Edit Jadwal Latihan</h1>
-
+@if ($errors->any())
+    <div class="bg-red-500 text-white p-4 mb-4 rounded">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <form action="{{ route('jadwal.update', $jadwal->id) }}" method="POST" class="space-y-4">
             @csrf
             @method('PUT')
@@ -32,16 +40,37 @@
             </div>
 
             <div class="grid grid-cols-2 gap-4">
+             <div>
+    <label class="block font-medium">Jam Mulai</label>
+    <input type="time" name="jam_mulai" class="w-full border rounded px-3 py-2" 
+           value="{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}">
+</div>
+
+<div>
+    <label class="block font-medium">Jam Selesai</label>
+    <input type="time" name="jam_selesai" class="w-full border rounded px-3 py-2" 
+           value="{{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}">
+</div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block font-medium">Jam Mulai</label>
-                    <input type="time" name="jam_mulai" class="w-full border rounded px-3 py-2" 
-                           value="{{ $jadwal->jam_mulai }}">
+                    <label class="block font-medium">Tempat</label>
+                    <input type="text" name="ruangan" class="w-full border rounded px-3 py-2" 
+                           value="{{ $jadwal->ruangan }}">
                 </div>
                 <div>
-                    <label class="block font-medium">Jam Selesai</label>
-                    <input type="time" name="jam_selesai" class="w-full border rounded px-3 py-2" 
-                           value="{{ $jadwal->jam_selesai }}">
+                    <label class="block font-medium">Kuota</label>
+                    <input type="number" name="kuota_maksimal" class="w-full border rounded px-3 py-2" 
+                           value="{{ $jadwal->kuota_maksimal }}">
                 </div>
+            </div>
+            <div>
+            <label class="block font-medium">Status</label>
+         <select name="status" id="status" class="w-full">
+           <option value="active" {{ $jadwal->status == 'active' ? 'selected' : '' }}>Aktif</option>
+           <option value="cancelled" {{ $jadwal->status == 'cancelled' ? 'selected' : '' }}>Batal</option>
+          
+</select>
             </div>
 
             {{-- Tombol --}}

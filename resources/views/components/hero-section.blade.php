@@ -1,14 +1,6 @@
 
     <section class="relative h-[600px] flex items-center mb-10 overflow-hidden">
-        <button x-show="!open" x-transition.opacity @click="open = !open"
-            class="absolute top-5 left-5 z-50 md:hidden text-white hover:text-red-600 transition p-2">
-            <svg class="w-8 h-8 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
-            </svg>
-
-
-        </button>
+       
 
 
         <div class="absolute inset-0 z-0">

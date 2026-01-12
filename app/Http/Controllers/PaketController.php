@@ -46,8 +46,7 @@ class PaketController extends Controller
         // 3. Proses Benefit (Dari String Textarea -> Array JSON)
         $benefitsArray = [];
         if ($request->filled('benefits')) {
-            // Pecah string berdasarkan baris baru (Enter)
-            // Trim spasi, hapus baris kosong, dan reset index array
+
             $benefitsArray = array_values(array_filter(array_map('trim', explode(PHP_EOL, $request->benefits))));
         }
 

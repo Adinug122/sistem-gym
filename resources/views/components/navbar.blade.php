@@ -22,7 +22,7 @@
             </a>
         </li>
         @auth 
-            <li class="mr-7"> <a href="{{ route('hai') }}" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Dashboard
+            <li class="mr-7"> <a href="{{ route('dashboard.user') }}" class="group relative inline-block py-2 font-medium transition-colors hover:text-gym-500">Dashboard
             <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-gym-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
         </li>   

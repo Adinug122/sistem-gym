@@ -7,8 +7,8 @@ use App\Models\Trainer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\Rule;
-
+use Illuminate\Validation\Rule; 
+use Illuminate\Support\Facades\Storage;
 class TrainerController extends Controller
 {
     /**
@@ -92,16 +92,27 @@ class TrainerController extends Controller
         $trainer = Trainer::with("user")->findOrFail($id);
         $user = $trainer->user;
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',Rule::unique('users','email')->ignore($user->id),
-            'specialis' => 'required|string',
-            'status' => 'required|in:active,nonactive',
+         'name'      => 'required|string|max:255',
+        'email'     => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
+        'specialis' => 'required|string',
+        'status'    => 'required|in:active,nonactive',
+       'avatar'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $trainer->user()->update([
-            'name' => $request->name,
+        $userData = [
+             'name' => $request->name,
             'email' => $request->email,
-        ]);
+        ];
+
+        if($request->hasFile('avatar')){
+            if($trainer->user->avatar && Storage::disk('public')->exists($trainer->user->avatar)){
+                Storage::disk('public')->delete($trainer->user->avatar);
+              
+            }
+            
+             $userData['avatar'] =  $request->file('avatar')->store('avatar','public');
+        } 
+        $trainer->user()->update($userData);
 
         $trainer->update([
             'user_id' => $user->id,

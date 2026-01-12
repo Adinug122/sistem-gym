@@ -32,9 +32,19 @@
                     <label class="block font-medium">Specialis</label>
                     <input type="text" name="specialis" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
                 </div>
-                <div>
+                <div x-data="imagePreview()" class="space-y-2">
                     <label class="block font-medium">Foto</label>
-                    <input type="file" name="avatar" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
+                    <div class="w-full h-48 border-dashed rounded-lg flex items-center justify-center">
+                        <template x-if="imageUrl">
+                            <img :src="imageUrl" class="w-full h-full object-cover">
+                        </template>
+                        <template x-if="!imageUrl">
+                            <span class="text-gray-400 text-sm">Preview Gambar</span>
+                        </template>
+                    </div>
+                    <input type="file" name="avatar"  accept="image/*"
+               @change="previewImage"  class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
+                    <p class="text-xs text-gray-500">PNG, JPG, JPEG (Max. 2MB)</p>
                 </div>
 
                 <div>
@@ -62,5 +72,16 @@
         </div>
     </div>
 
-
+<script>
+    function imagePreview(){
+        return{
+            imageUrl:null,
+            previewImage(event){
+                const file = event.target.files[0]
+                if(!file) return
+                this.imageUrl = URL.createObjectURL(file)
+            }
+        }
+    }
+</script>
 </x-app-layout>

@@ -54,6 +54,14 @@
                         <label class="block font-medium mb-1">Jam Selesai</label>
                         <input type="time" name="jam_selesai" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
                     </div>
+                    <div>
+                        <label class="block font-medium mb-1">Ruangan</label>
+                        <input type="text" name="ruangan" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-1">Kuota</label>
+                        <input type="number" name="kuota_maksimal" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
+                    </div>
                 </div>
 
              

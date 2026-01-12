@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\ProfileController;
@@ -11,30 +12,34 @@ use App\Http\Controllers\PaketController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgramLatihanController;
 use App\Http\Controllers\TrainerController;
+use App\Models\Jadwal;
 use App\Models\Paket;
 use App\Models\ProgramLatihan;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[DashboardController::class,'index'])->name('landing');
+Route::get('/jadwal/{id}', [JadwalController::class, 'show'])
+    ->name('jadwal.show')
+    ->whereNumber('id');
+
 
 Route::middleware(['role:member'])->group(function(){
-Route::get('/hai', function () {
-    return view('hai');
-})->name('hai');
+Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard.user');
 Route::get('/membership/success',[MembershipController::class,'success'])->name("success");
 Route::resource('membership',MembershipController::class);
+Route::get('/jadwal/user',[DashboardController::class,'jadwal'])->name('jadwal.user');
 });
 
 Route::get('/hai',[DashboardController::class,'dashboard'])->name('hai');
 
 Route::middleware(['role:trainer'])->group(function(){
-Route::get('/trainer',function(){
-    return view('trainer');
-})->name('trainer');
+Route::get('/trainer',[BookingController::class,'index'])->name('trainer');
+Route::delete('/booking/{id}',[BookingController::class,'destroy'])->name('booking.destroy');
 Route::resource('program',ProgramLatihanController::class);
-Route::resource('jadwal',JadwalController::class);
+Route::resource('jadwal',JadwalController::class)->except('show');
+Route::get('jadwal/{id}/peserta',[JadwalController::class,'peserta'])->name('peserta');
 });
 
 
@@ -72,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 });
 
 require __DIR__.'/auth.php';
