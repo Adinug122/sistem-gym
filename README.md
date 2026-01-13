@@ -2,9 +2,9 @@
 
 ## Sistem Membership Gym & Penjadwalan Terintegrasi Midtrans
 
-**IRON GYM** adalah solusi digital modern untuk manajemen operasional gym. Sistem ini mengotomatisasi pendaftaran member, pembelian paket, pembayaran online via Payment Gateway Midtrans, hingga pengelolaan kuota & jadwal latihan secara real-time.
+**IRON GYM** adalah solusi digital modern untuk manajemen operasional gym. Sistem ini mengotomatisasi pendaftaran member, pembelian paket, pembayaran online melalui Payment Gateway **Midtrans**, hingga pengelolaan kuota & jadwal latihan secara **real-time**.
 
-Cocok untuk **pemilik gym**, **personal trainer**, maupun **developer** yang ingin menggunakan atau menjual ulang sistem manajemen gym berbasis Laravel.
+Cocok untuk **pemilik gym**, **personal trainer**, maupun **developer** yang ingin menggunakan atau menjual ulang sistem manajemen gym berbasis **Laravel**.
 
 ---
 
@@ -24,7 +24,7 @@ Cocok untuk **pemilik gym**, **personal trainer**, maupun **developer** yang ing
 ### 📅 Manajemen Kuota & Jadwal Pintar
 
 * **Logic Kuota Otomatis**
-  Sistem mengecek ketersediaan slot berdasarkan:
+  Sistem mengecek ketersediaan slot dengan logic:
   `jumlah_booking < kuota_maksimal`
 * **Status Visual Dinamis**
   🟢 Hijau = Slot tersedia
@@ -44,21 +44,21 @@ Cocok untuk **pemilik gym**, **personal trainer**, maupun **developer** yang ing
 
 ### 🎨 UI/UX Modern
 
-* Dibangun dengan **Tailwind CSS**.
-* Responsif (Mobile & Desktop).
+* Dibangun menggunakan **Tailwind CSS**.
+* Tampilan responsif (Mobile & Desktop).
 * Sidebar dengan **Active Navigation Indicator**.
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
 
-| Layer    | Teknologi                |
-| -------- | ------------------------ |
-| Backend  | Laravel 11/12 (PHP 8.2+) |
-| Frontend | Tailwind CSS + Vite      |
-| Database | MySQL         |
-| Payment  | Midtrans Snap API        |
-| HTTPS    | Cloudflare Tunnel        |
+| Layer           | Teknologi                |
+| --------------- | ------------------------ |
+| Backend         | Laravel 11/12 (PHP 8.2+) |
+| Frontend        | Tailwind CSS + Vite      |
+| Database        | MySQL                    |
+| Payment Gateway | Midtrans Snap API        |
+| HTTPS           | Cloudflare Tunnel        |
 
 ---
 
@@ -78,9 +78,10 @@ C:/laragon/www/gym-app
 
 Masuk ke folder proyek, lalu jalankan:
 
-
+```bash
 composer install
 npm install
+```
 
 ---
 
@@ -92,21 +93,19 @@ Rename file:
 .env.example → .env
 ```
 
-Lalu sesuaikan konfigurasi berikut:
+#### 🔹 Konfigurasi Database
 
-#### 🔹 Database
-
-```
+```env
 DB_DATABASE=db_gym
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-#### 🔹 Midtrans Configuration
+#### 🔹 Konfigurasi Midtrans
 
 Dapatkan **Client Key** & **Server Key** dari Dashboard Midtrans (Sandbox):
 
-```
+```env
 MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxxxxxx
 MIDTRANS_SERVER_KEY=SB-Mid-server-xxxxxxxx
 MIDTRANS_IS_PRODUCTION=false
@@ -125,7 +124,7 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 
-Seeder akan otomatis membuat:
+Seeder otomatis membuat:
 
 * Akun Admin
 
@@ -139,7 +138,15 @@ npm run build
 
 ---
 
-### 6️⃣ Menjalankan Server
+### 6️⃣ Storage Link
+
+```bash
+php artisan storage:link
+```
+
+---
+
+### 7️⃣ Menjalankan Server
 
 ```bash
 php artisan serve
@@ -183,22 +190,18 @@ Password : admin123
 
 ## 📦 Isi Paket Penjualan Source Code
 
-📁 Full Source Code Laravel (Clean & Structured)
-
-📁 Konfigurasi Midtrans (Snap + Webhook)
-
-📁 Database Migration & Seeder
-
-📜 Dokumentasi Instalasi (README.md)
-
-🖼️ Folder Screenshot UI
+* 📁 Full Source Code Laravel (Clean & Structured)
+* 📁 Konfigurasi Midtrans (Snap + Webhook)
+* 📁 Database Migration & Seeder
+* 📜 Dokumentasi Instalasi (README.md)
+* 🖼️ Folder Screenshot UI
 
 ---
 
 ## 📌 Catatan Penting
 
 * Gunakan **Midtrans Sandbox** untuk testing.
-* Jangan lupa ubah `MIDTRANS_IS_PRODUCTION=true` saat live.
+* Ubah `MIDTRANS_IS_PRODUCTION=true` saat masuk Production.
 * Sistem siap dikembangkan untuk:
 
   * Multi Cabang Gym
