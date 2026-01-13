@@ -1,59 +1,210 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏋️‍♂️ IRON GYM
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Sistem Membership Gym & Penjadwalan Terintegrasi Midtrans
 
-## About Laravel
+**IRON GYM** adalah solusi digital modern untuk manajemen operasional gym. Sistem ini mengotomatisasi pendaftaran member, pembelian paket, pembayaran online via Payment Gateway Midtrans, hingga pengelolaan kuota & jadwal latihan secara real-time.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Cocok untuk **pemilik gym**, **personal trainer**, maupun **developer** yang ingin menggunakan atau menjual ulang sistem manajemen gym berbasis Laravel.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fitur Utama (Key Features)
 
-## Learning Laravel
+### 💳 Otomasi Pembayaran (Midtrans Gateway)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* **Multi-Payment Support**
+  Virtual Account (BCA, Mandiri, BNI, BRI), E-Wallet (GoPay, QRIS, ShopeePay), dan Kartu Kredit.
+* **Instant Activation**
+  Membership otomatis aktif setelah pembayaran sukses tanpa konfirmasi manual (Webhook Ready).
+* **Invoice & Riwayat Transaksi**
+  Semua transaksi tercatat rapi dan siap untuk audit.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+### 📅 Manajemen Kuota & Jadwal Pintar
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* **Logic Kuota Otomatis**
+  Sistem mengecek ketersediaan slot berdasarkan:
+  `jumlah_booking < kuota_maksimal`
+* **Status Visual Dinamis**
+  🟢 Hijau = Slot tersedia
+  🔴 Merah = Slot penuh
+* **Booking Guard**
+  Hanya member dengan status **Active** yang dapat melakukan booking jadwal.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 📷 Akses Kamera (Identity Capture)
 
-## Contributing
+* Pengambilan foto profil atau verifikasi identitas langsung dari browser.
+* Mendukung webcam laptop & kamera HP.
+* **Catatan:** Membutuhkan koneksi HTTPS.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+### 🎨 UI/UX Modern
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Dibangun dengan **Tailwind CSS**.
+* Responsif (Mobile & Desktop).
+* Sidebar dengan **Active Navigation Indicator**.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🛠️ Teknologi yang Digunakan
 
-## License
+| Layer    | Teknologi                |
+| -------- | ------------------------ |
+| Backend  | Laravel 11/12 (PHP 8.2+) |
+| Frontend | Tailwind CSS + Vite      |
+| Database | MySQL         |
+| Payment  | Midtrans Snap API        |
+| HTTPS    | Cloudflare Tunnel        |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🚀 Panduan Instalasi Lengkap (Local Development)
+
+### 1️⃣ Persiapan File
+
+Ekstrak source code ke folder web server:
+
+```
+C:/laragon/www/gym-app
+```
+
+---
+
+### 2️⃣ Instalasi Dependency
+
+Masuk ke folder proyek, lalu jalankan:
+
+
+composer install
+npm install
+
+---
+
+### 3️⃣ Konfigurasi Environment (.env)
+
+Rename file:
+
+```
+.env.example → .env
+```
+
+Lalu sesuaikan konfigurasi berikut:
+
+#### 🔹 Database
+
+```
+DB_DATABASE=db_gym
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+#### 🔹 Midtrans Configuration
+
+Dapatkan **Client Key** & **Server Key** dari Dashboard Midtrans (Sandbox):
+
+```
+MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxxxxxx
+MIDTRANS_SERVER_KEY=SB-Mid-server-xxxxxxxx
+MIDTRANS_IS_PRODUCTION=false
+MIDTRANS_SANITIZED=true
+MIDTRANS_3DS=true
+```
+
+---
+
+### 4️⃣ Generate Key & Database
+
+Jalankan perintah berikut secara berurutan:
+
+```bash
+php artisan key:generate
+php artisan migrate --seed
+```
+
+Seeder akan otomatis membuat:
+
+* Akun Admin
+
+---
+
+### 5️⃣ Build Asset Frontend
+
+```bash
+npm run build
+```
+
+---
+
+### 6️⃣ Menjalankan Server
+
+```bash
+php artisan serve
+```
+
+Akses aplikasi di:
+
+```
+http://localhost:8000
+```
+
+---
+
+## 🔐 HTTPS & Callback Midtrans (WAJIB)
+
+Fitur **Kamera Browser** dan **Webhook Midtrans** membutuhkan HTTPS.
+
+Gunakan Cloudflare Tunnel:
+
+```bash
+cloudflared tunnel --protocol http2 --url http://localhost:8000
+```
+
+Gunakan URL HTTPS dari Cloudflare sebagai:
+
+* Callback URL Midtrans
+* Base URL aplikasi
+
+---
+
+## 👤 Akun Login Default (Testing)
+
+**Admin**
+
+```
+Email    : admin@gmail.com
+Password : admin123
+```
+
+---
+
+## 📦 Isi Paket Penjualan Source Code
+
+📁 Full Source Code Laravel (Clean & Structured)
+
+📁 Konfigurasi Midtrans (Snap + Webhook)
+
+📁 Database Migration & Seeder
+
+📜 Dokumentasi Instalasi (README.md)
+
+🖼️ Folder Screenshot UI
+
+---
+
+## 📌 Catatan Penting
+
+* Gunakan **Midtrans Sandbox** untuk testing.
+* Jangan lupa ubah `MIDTRANS_IS_PRODUCTION=true` saat live.
+* Sistem siap dikembangkan untuk:
+
+  * Multi Cabang Gym
+  * Membership Personal Trainer
+  * Absensi QR / Face Capture
+
+---
+
+🚀 **IRON GYM** – Solusi Gym Modern, Otomatis, & Siap Produksi
