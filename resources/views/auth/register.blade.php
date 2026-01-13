@@ -1,4 +1,11 @@
 <x-guest-layout>
+        <div>
+        <span class="text-3xl font-bold text-gym-500 mb-4">Selamat Datang </span>
+    </div>
+    <div class="mb-5">
+        <span class="text-sm text-slate-800 mt-2 ">Silakan Registrasi terlebih dahulu!</span>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

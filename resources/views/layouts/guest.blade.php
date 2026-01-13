@@ -77,9 +77,9 @@
            
             </div>
 
-            <div class="w-full lg:w-1/2 flex justify-center items-center bg-white  shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full md:max-w-[70%] lg:w-1/2 flex justify-center items-center bg-white  shadow-md overflow-hidden sm:rounded-lg">
                 <div class="w-full max-w-sm">
-                  <div class="relative z-10 flex lg:hidden items-center gap-2">
+                  <div class="relative z-10 flex lg:hidden items-center gap-2 ">
                 <div class=" rounded-lg p-2 w-10 h-10 flex items-center">
                             <x-application-logo></x-application-logo>      
                         </div>

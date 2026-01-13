@@ -33,14 +33,19 @@
             </div>
 
             <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-                <a href="{{ route('dashboard.user') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500 text-white transition-all shadow-md">
-                    <i class="fas fa-home w-5"></i>
-                    <span class="font-medium">Dashboard</span>
-                </a>
-                <a href="{{ route('jadwal.user') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-slate-800 hover:text-gray-200 transition-all">
-                    <i class="fas fa-calendar-alt w-5"></i>
-                    <span class="font-medium">Jadwal Latihan</span>
-                </a>
+             
+            <a href="{{ route('dashboard.user') }}" 
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('dashboard.user') ? 'bg-red-500 text-white shadow-md' : 'text-gray-400 hover:bg-slate-800 hover:text-gray-200' }}">
+                <i class="fas fa-home w-5"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+
+            {{-- Link Jadwal --}}
+            <a href="{{ route('jadwal.user') }}" 
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('jadwal.user') ? 'bg-red-500 text-white shadow-md' : 'text-gray-400 hover:bg-slate-800 hover:text-gray-200' }}">
+                <i class="fas fa-calendar-alt w-5"></i>
+                <span class="font-medium">Jadwal Latihan</span>
+            </a>
             <a href="{{ route('landing') }}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 group">
                 <svg class="w-5 h-5 mr-3 group-hover:text-gym-500  xmlns="http://www.w3.org/2000/svg"
      class="w-5 h-5"

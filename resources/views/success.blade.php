@@ -45,9 +45,7 @@
                 </a>
             </div>
 
-            <p class="mt-8 text-xs text-gray-400">
-                Transaction ID: {{ request('order_id') ?? '-' }}
-            </p>
+          
         </div>
     </div>
     

@@ -129,4 +129,7 @@ class MemberController extends Controller
 
         return redirect()->route("admin.member.index")->with("success","data berhasil dihapus");
     }
+
+
+    
 }

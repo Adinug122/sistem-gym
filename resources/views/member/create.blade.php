@@ -34,12 +34,9 @@
                 </div>
 
                 <div>
-                    <label class="block font-medium">Status</label>
-                    <select name="status" class="w-full rounded border px-3 py-2 focus:border-gym-500 focus:ring-gym-500">
-                        <option value="active">Active</option>
-                        <option value="nonactive">Non Active</option>
-                    </select>
+                    <input type="hidden" name="status" value="nonactive">
                 </div>
+              
 
             <div class="flex justify-between gap-3 pt-4">
                     <a href="{{ route('admin.member.index') }}"
