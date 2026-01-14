@@ -26,7 +26,7 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-start gap-4">
-                        <a href="{{ route('register') }}"
+                        <a href="{{ route('daftar.trainer') }}"
                             class="group relative px-6 py-3 text-sm sm:px-4 sm:py-3 md:px-6 md:py-5 lg:px-8 lg:py-4 bg-red-600 text-white font-bold md:text-lg rounded-md overflow-hidden shadow-lg shadow-red-600/30 transition-all  hover:shadow-red-600/50">
                             <span class="relative z-10">Cari Personal Trainer</span>
                             <div

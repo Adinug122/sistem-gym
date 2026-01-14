@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Absensi;
 use App\Models\Member;
 use App\Models\Payments;
-use App\Models\trainer;
+use App\Models\Trainer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function index(){
         $memberAktif = Member::where('status','active')->count();
         $Totalmember = Member::count();
-        $Totaltrainer = trainer::count();
+        $Totaltrainer = Trainer::count();
         $AbsenHariIni = Absensi::whereDate('checkin_time',Carbon::today())->count();   
 
         $dataPendapatan = Payments::join('membership', 'payments.membership_id', '=', 'membership.id')

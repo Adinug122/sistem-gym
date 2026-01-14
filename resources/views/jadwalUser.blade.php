@@ -7,7 +7,7 @@
                     <h2 class="text-2xl font-bold text-slate-800">Jadwal Saya</h2>
                     <p class="text-slate-500">Daftar kelas yang sudah kamu booking.</p>
                 </div>
-                <a href="{{ url('/jadwal') }}" class="text-white bg-red-500 px-3 py-2 rounded-2xl hover:text-gym-800 font-semibold text-sm">
+                <a href="{{ route('daftar.jadwal') }}" class="text-white bg-red-500 px-3 py-2 rounded-2xl hover:text-gym-800 font-semibold text-sm">
                      Cari Kelas Lain
                 </a>
             </div>

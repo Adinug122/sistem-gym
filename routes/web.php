@@ -55,6 +55,7 @@ Route::get('/member', function () {
 Route::get('/scan',function(){
     return view('scan.index');
 })->name('scan');
+Route::get('/absensi/export', [AbsensiController::class, 'exportExcel'])->name('absensi.export');
 Route::post('/absensi',[AbsensiController::class,'store'])->name('absensi.store');
 Route::get('/absensi/checkin',[AbsensiController::class,'index'])->name('absensi.index');
 Route::get('/membership',[MembershipController::class,'index'])->name('membership.index');

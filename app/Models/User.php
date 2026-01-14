@@ -49,10 +49,11 @@ class User extends Authenticatable
     }
 
     public function Member(){
-        return $this->hasOne(member::class);
+        return $this->hasOne(Member::class);
+
     }
     public function Trainer(){
-        return $this->hasOne(trainer::class);
+        return $this->hasOne(Trainer::class);
     }
 
 }

@@ -50,6 +50,25 @@
         </div>
 
     </form>
+
+    <form action="{{ route('admin.absensi.export') }}" method="GET" class="flex items-center mt-5 gap-3">
+       <select name="bulan" class="px-4 py-2 pr-4 border-gray-300 rounded">
+           @foreach (range(1,12) as $m)
+               <option value="{{ $m }}" {{ date('n') == $m ? 'selected' : '' }}>
+                   {{ date('F',mktime(0,0,0,$m,10)) }}
+               </option>           
+           @endforeach
+       </select>
+       <select name="tahun" class="pz-4 py-2 pr-8 borser border-gray-300  rounded-lg">
+              @foreach(range(date('Y'), 2024) as $y)
+            <option value="{{ $y }}">{{ $y }}</option>
+        @endforeach
+       </select>
+
+       <button type="submit" class="bg-green-600 hover:green-700 text-white px-3 py-2 rounded-lg">
+        Export Excel
+       </button>
+    </form>
 </div>
  
 <div x-data="{isOpen:false,actionUrl: ''} "
@@ -65,6 +84,7 @@
 <tr>
     <th class="px-6 py-4 text-left text-xs font-bold">MEMBER</th>
     <th class="px-6 py-4 text-left text-xs font-bold">WAKTU</th>
+    <th class="px-6 py-4 text-left text-xs font-bold">TANGGAL</th>
     <th class="px-6 py-4 text-left text-xs font-bold">PAKET</th>
     <th class="px-6 py-4 text-left text-xs font-bold">SISA HARI</th>
 </tr>
@@ -94,6 +114,7 @@
                             $sisa = 'Paket tersisa '. $selisih . ' hari';
                         }
 
+                        $tanggal = $absen->created_at->translatedFormat('d M Y  ')
                     @endphp
                  
                   
@@ -107,6 +128,9 @@
 
             <td class="px-6 py-4">
                 {{ \Carbon\Carbon::parse($absen->checkin_time)->format('H:i') }} WIB
+            </td>
+            <td class="px-6 py-4">
+              {{ $tanggal }}
             </td>
 
             <td class="px-6 py-4">

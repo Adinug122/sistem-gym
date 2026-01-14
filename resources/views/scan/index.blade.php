@@ -89,10 +89,16 @@
     // Inisialisasi Scanner
     let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader", 
-        { 
-            fps: 10,  // 10 cukup biar ringan
-            qrbox: 250 
-        },
+    { 
+        fps: 20, 
+        qrbox: { width: 250, height: 250 },
+        // Tambahkan baris ini untuk mendukung scan dari file gambar
+        rememberLastUsedCamera: true,
+        supportedScanTypes: [
+            Html5QrcodeScanType.SCAN_TYPE_CAMERA,
+            Html5QrcodeScanType.SCAN_TYPE_FILE
+        ]
+    },
         /* verbose= */ false
     );
 

@@ -6,6 +6,8 @@ use App\Models\Member;
 use App\Models\Membership;
 use App\Models\Absensi;
 use Carbon\Carbon;
+use App\Exports\AbsensiReport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ class AbsensiController extends Controller
      */
     public function index(Request $request)
     {
-        $query = absensi::with(['member.user','member.membership']);
+        $query = Absensi::with(['member.user','member.membership']);
 
         if($request->has('bulan') && $request->bulan != null){
             $date = Carbon::parse($request->bulan);
@@ -108,9 +110,15 @@ public function store(Request $request)
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function exportExcel(Request $request)
     {
-        //
+        $bulan = $request->bulan ?? date('m');
+        $tahun = $request->tahu  ?? date('Y');
+
+        return Excel::download(
+            new AbsensiReport($bulan,$tahun),
+            "Rekap-absensi-{$bulan}-{$tahun}.xlsx"
+        );
     }
 
     /**

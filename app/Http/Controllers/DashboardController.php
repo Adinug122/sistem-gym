@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\booking;
+use App\Models\Booking;
 use App\Models\Membership;
 use App\Models\Paket;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use App\Models\Jadwal;
 use App\Models\ProgramLatihan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Member;
-use App\Models\trainer;
+use App\Models\Trainer;
 use Carbon\Carbon;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $paket = Paket::latest()->limit(3)->get();
             $program = ProgramLatihan::all();
        $jadwal = Jadwal::with('program')->latest()->limit(6)->get();
-        $trainer = trainer::with('user')->latest()->limit(4)->get();
+        $trainer = Trainer::with('user')->latest()->limit(4)->get();
 
         return view('welcome',compact('paket','program','jadwal','trainer'));
     }
@@ -37,9 +37,9 @@ public function daftarPaket(){
 }
 
 public function daftarTrainer(){
-      $trainer = trainer::with('user')->get();
+      $trainer = Trainer::with('user')->get();
 
-      return view('daftarTrainer',compact('trainer'));
+      return view('trainer',compact('trainer'));
 }
     public function dashboard(){
     $user = Auth::user();
@@ -92,7 +92,7 @@ return view('hai',compact(
     public function jadwal(){
         $user = Auth::user();
 
-        $booking = booking::with('jadwal.program','jadwal.program.trainer.user')
+        $booking = Booking::with('jadwal.program','jadwal.program.trainer.user')
             ->where('member_id' ,$user->member->id)
             ->orderBy('created_at','desc')
             ->get();

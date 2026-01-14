@@ -79,7 +79,7 @@ class TrainerController extends Controller
      */
     public function edit(string $id)
     {
-        $trainer = trainer::findOrFail($id);
+        $trainer = Trainer::findOrFail($id);
         return view('trainer.edit',compact("trainer"));
     }
 

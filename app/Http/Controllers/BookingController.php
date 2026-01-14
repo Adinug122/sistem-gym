@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use App\Models\Member;
-use App\Models\booking; // Pastikan Model diawali huruf Besar (Standar Laravel)
+use App\Models\Booking; // Pastikan Model diawali huruf Besar (Standar Laravel)
 use App\Models\Membership;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\DataTypes\BTC;
 
 class BookingController extends Controller
 {
@@ -28,7 +29,7 @@ class BookingController extends Controller
      
         $classHariIni = $class->count();
        $classIds = $class->pluck('id');  
-        $totalPeserta = booking::whereIn('jadwal_id',$classIds)
+        $totalPeserta = Booking::whereIn('jadwal_id',$classIds)
                         ->count();
      
     return view('trainer',compact('classHariIni','totalPeserta','class'));
@@ -54,7 +55,7 @@ class BookingController extends Controller
         }
 
   
-        $sudahDaftar = booking::where('member_id', $member->id)
+        $sudahDaftar = Booking::where('member_id', $member->id)
             ->where('jadwal_id', $jadwal->id)
             ->exists();
 
@@ -63,7 +64,7 @@ class BookingController extends Controller
         }
 
         // 4. Cek Kuota
-        $totalPeserta = booking::where('jadwal_id', $jadwal->id)->count();
+        $totalPeserta = Booking::where('jadwal_id', $jadwal->id)->count();
         if($totalPeserta >= $jadwal->kuota_maksimal){
             return back()->with('error', 'Yah, kuota kelas ini sudah penuh');
         }
@@ -92,7 +93,7 @@ class BookingController extends Controller
     }
 
     public function destroy($id){
-        $booking = booking::findOrFail($id);
+        $booking = Booking::findOrFail($id);
         $user = Auth::user();
         $isTrainerPemilik = false;
         $isMemberYangPunya = ($booking->user_id == $user->id);

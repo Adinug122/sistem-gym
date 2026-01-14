@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProgramLatihan;
-use App\Models\trainer;
+use App\Models\Trainer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +14,7 @@ class ProgramLatihanController extends Controller
      */
     public function index()
     {
-        $trainer = trainer::where('user_id', Auth::id())->firstOrFail();
+        $trainer = Trainer::where('user_id', Auth::id())->firstOrFail();
 
         $program = ProgramLatihan::with('trainer')
         ->where('trainer_id',$trainer->id)
